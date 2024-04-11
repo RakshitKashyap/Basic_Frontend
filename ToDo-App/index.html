@@ -1,0 +1,380 @@
+<!doctype html>
+    <head>
+        <title>To Do List</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS only -->
+        <link rel="stylesheet" href="assets/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <!-- External BS 5 js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-sm navbar-secondary bg-info border">
+            <div class="conatiner-fluid">
+                <span class="navbar-brand mx-5 text-light" href="javascript:void(0)">TO-DO LIST</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <button class="nav-link btn btn-outline-primary mx-4" data-bs-toggle="modal" data-bs-target="#newTaskModal" role="tab" aria-controls="newTaskModal" aria-selected="true">Add new Task</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn btn-outline-danger" href="javascript:void(0)" onclick="logOut()">Logout</button>
+                    </li>
+                </ul>
+            </div>         
+        </nav>
+
+
+        <div class="auth border m-5" id="AuthConatiner">
+            <h2 class="mb-4">User Login</h2>
+
+            <div class="input-group mb-4">
+                <span class="input-group-text">Username</span>
+                <input type="text" class="form-control" id="usernameSignIn" placeholder="Username">
+            </div>
+            
+            <div class="input-group mb-4">
+                <span class="input-group-text" id="basic-addon1">Password</span>
+                <input type="email" class="form-control" id="passwordSignIn" placeholder="Password">
+            </div>
+
+            <div class="row g-2 mb-3">
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" disabled id="capchta1">
+                </div>
+                <div class="col-sm-1">
+                    <p class="p-1"><span class="">+</span></p>
+                </div>
+                  <div class="col-sm-2">
+                    <input type="text" class="form-control" disabled id="capchta2">
+                  </div>
+                <div class="col-sm">
+                  <input type="text" class="form-control" placeholder="answer" id="captchaAnswer">
+                </div>
+                <div class="col-sm">
+                  <button class="btn btn-outline-success" id="captchRefresh" onclick="RefreshCaptcha()">refresh</button>
+                </div>
+            </div>
+            
+            <div class="row g-1">
+                <div class="col-sm"><button class="px-3 mx-1" id="LoginButton">Login</button></div>
+                <div class="col-sm"><button class="px-3 mx-1" id="RegisterButton">Sign-Up</button></div>
+                <div class="col-sm"><span id="forgetPassword">Forget-Password</span></div>
+                
+            </div>
+    
+        </div>
+
+        <div class="container border" id="registerUser">
+            <h4>User Registration form</h4>
+            <div class="row g-1 p-2 mb-1">
+                <div class="col-sm-4 custom">
+                    <span>Name</span>
+                </div>
+                <div class="col-sm inputClass">
+                    <input type="text" id="name" placeholder="Full Name">
+                </div>
+
+                
+            </div>
+            <div class="row g-1 p-2 mb-1">
+                <div class="col-sm-4 custom">
+                    <span>Username</span>
+                </div>
+                <div class="col-sm inputClass">
+                    <input type="text" id="username" placeholder="Username">
+                </div>
+                
+            </div>
+            <div class="row g-1 p-2 mb-1">
+                <div class="col-sm-4 custom">
+                    <span>Email</span>
+                </div>
+                <div class="col-sm inputClass">
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+                
+            </div>
+            <div class="row g-1 p-2 mb-1">
+                <div class="col-sm-4 custom">
+                    <span>Mobile</span>
+                </div>
+                <div class="col-sm inputClass">
+                    <input type="tel" id="mobile" placeholder="Mobile">
+                </div>
+                
+            </div>
+            <div class="row g-1 p-2 mb-1">
+                <div class="col-sm-4 custom">
+                    <span>Password</span>
+                </div>
+                <div class="col-sm inputClass">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                
+            </div>
+            <div class="row g-1 p-2 mb-1">
+                <div class="col-sm-4 custom">
+                    <span>Consfirm Password</span>
+                </div>
+                <div class="col-sm inputClass">
+                    <input type="password" id="confirmPassword" onchange="matchPassword()" placeholder="confirmPassword">
+                </div>
+            </div>
+            <div class="form-check form-switch m-4">
+                <input class="form-check-input" type="checkbox" role="switch" id="newOpt" checked>
+                <label class="form-check-label" for="newOpt">You're subscribed for daily updates on the task and other related news letters.</label>
+            </div>
+            <button class="btn btn-outline-secondary w-75" id="SignUpButton" disabled>Sign Up</button>
+        </div>
+
+        <div class="sideRepo" id="informatives">
+
+        </div>
+
+        <div class="content mt-4" id="mainContent">
+
+            <div class="d-flex align-items-start mt-2 mx-1">
+                <div class="nav flex-column nav-pills me-3 border mx-1 shadow rounded my-5" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link text-left" id="v-pills-new-tab" data-bs-toggle="modal" data-bs-target="#newTaskModal" type="button" role="tab" aria-controls="newTaskModal" aria-selected="true">Add New</button>
+                    <button class="nav-link text-left active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true" onclick="show('All')">All</button>
+                    <button class="nav-link text-left" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false" onclick="show('Pending')">Pending</button>
+                    <button class="nav-link text-left" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false" onclick="show('Success')">Completed</button>
+                    <button class="nav-link text-left" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false" onclick="show('Failed')">Failed</button>
+                </div>
+                <div class="tab-content mt-3" id="v-pills-tabContent">
+    
+                    <!-- common things to be specified here -->
+            
+                    <table class="table table-hover" id="table">
+                        <thead>
+                            <tr>
+                                <th>Task Id</th>
+                                <th>Task</th>
+                                <th>Created On</th>
+                                <th>Closed By</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="showRows">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <div class="modal" tabindex="-1" aria-hidden="true" id="newTaskModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h6 class="modal-title">Add A New Task To Do...</h6>
+                            <button class="btn btn-sm close" type="button" data-bs-dismiss="modal" aria-label="Close">X</button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- New task to be added Form -->
+                            <div class="container">
+                                <form id="form1">
+                                    <div class="row">
+                                        <div class="col-sm col-md">
+                                            <!-- flex for single inp like id & date -->
+                                            <div class="d-flex flex-column">
+                                                <div class="p-1 my-1">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Task Id</span>
+                                                        <input id="taskId" type="number" disabled class="form-control" placeholder="Task Id">
+                                                    </div>
+                                                </div>
+                                                <div class="p-1 my-1">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Created On</span>
+                                                        <input id="createdOn" type="date" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="p-1 my-1">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Closed By</span>
+                                                        <input id="closedBy" type="date" class="form-control" onchange="checkFordupe()">
+                                                    </div>
+                                                </div>
+                                                <div class="p-1" id="alert">
+                                                    <div class="alert alert-danger">
+                                                        <p>Created on and Closed by  Date should be different</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm col-md">
+                                            <!-- text area for task -->
+                                            <div class="form-floating">
+                                                <textarea class="form-control" id="taskDesc" cols="30" style="height: 100%;"></textarea>
+                                                <label for="taskDesc">Task Description</label>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </form>
+                            </div>
+    
+    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="saveBtn" class="btn btn-sm btn-outline-primary">Save</button>
+                            <button class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- modal for changing status of task to do -->
+    
+            <div class="modal" id="rowModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTitle">task Id: :...:</h5>
+                            <button type="button" class="btn btn-sm btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+    
+                        <div class="modal-body">
+                            <p class="text-bold text-secondary lead" id="modalTaskDec">Some description about the task</p>
+                            <p class="text-center text-bold p-1 m-1" id=taskStatus></p>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <div class="d-flex">
+                                <div class="p-1">
+                                    <button class="btn btn-sm btn-outline-primary" id="passBtn">Completed</button>
+                                </div>
+                                <div class="p-1">
+                                    <button class="btn btn-sm btn-outline-danger" id="failBtn">Failed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+
+        </div>
+
+    <script type="module">
+
+              // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+  import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDxY44Rz-Y-9Ul4-N7DT5gUdpbQ84Ebdx8",
+    authDomain: "organicshop-113fe.firebaseapp.com",
+    databaseURL: "https://organicshop-113fe-default-rtdb.firebaseio.com",
+    projectId: "organicshop-113fe",
+    storageBucket: "organicshop-113fe.appspot.com",
+    messagingSenderId: "1045647747739",
+    appId: "1:1045647747739:web:4b8d69eb395458fe5fb43e",
+    measurementId: "G-QBFS8G4WDC"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  const db = getDatabase(app);
+
+  const fullName = document.getElementById('name');
+  const email = document.getElementById('email');
+  const username = document.getElementById('username');
+  const mobile = document.getElementById('mobile');
+  const password = document.getElementById('password');
+  const confirmPassword = document.getElementById('confirmPassword');
+  const newsUpdate = document.getElementById('newOpt');
+    
+
+  
+
+    document.getElementById("SignUpButton").addEventListener('click' , function(e){
+        var user = username.value;
+        set(ref(db, `Users/${user}`), {
+            email       :   email.value,
+            username    :   username.value,
+            fullName    :   fullName.value,
+            mobile      :   mobile.value,
+            updateInfo  :   (newsUpdate.value=='on')?true:false,
+            password    :   password.value
+
+        });
+        alert("Registration Successfull.")
+    });
+
+
+    document.getElementById('LoginButton').addEventListener('click', function(e){
+        console.log("HEllo");
+        let username = 'rakshitKashyap';
+        get(ref(db, `Users/${username}`)).then((snapshot) => {
+            if(snapshot.exists()){
+                const data = snapshot.val();
+                console.log(data);
+              
+                var username = document.getElementById('usernameSignIn').value;
+                var password = document.getElementById('passwordSignIn').value;
+
+                if(username=='' || password==''){
+                    throw new Error("Password and Username are required fields")
+                }
+                if((username==data.username || username == data.email) && password == data.password){
+                    checkCaptcha();
+                    console.log("You're logged in.");
+                    localStorage.setItem("userLoggedIn", true);
+                    document.getElementById('AuthConatiner').style.display='none'; 
+                    document.getElementById('mainContent').style.display='block'; 
+
+                }
+                else{
+                    console.error("Invalid Username or password.");
+                }                
+            }
+        }).catch((err) => {
+            console.log("Error occured bitch", err)
+        });
+    });
+    // capchta1 capchta2 captchaAnswer RefreshCaptcha
+    function checkCaptcha(){
+        let cap1 = parseInt(document.getElementById('capchta1').value);
+        let cap2 = parseInt(document.getElementById('capchta2').value);
+
+        let cap3 = parseInt(document.getElementById('captchaAnswer').value);
+console.log(cap1, cap2, cap3);
+
+        if(cap3 == cap1+cap2){
+            return
+        }
+        else{
+            RefreshCaptcha();
+            throw new Error("Invalid Captcha");
+        }
+    }
+
+    function RefreshCaptcha(){
+    console.log("refreshhhh")
+    var captcha_1_val = Math.floor(Math.random() * (99)) + 1;
+    var captcha_2_val = Math.floor(Math.random() * (99)) + 1;
+    captcha_1.value = captcha_1_val;
+    captcha_2.value = captcha_2_val;
+    document.getElementById('captchaAnswer').value = 0;
+    }
+
+        </script>
+        
+        <script src="assets/app.js" type="text/javascript" charset="utf-8"></script>
+
+    </body>
+</html>

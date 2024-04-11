@@ -1,0 +1,145 @@
+body{
+   background-color: rgb(84, 123, 123);
+}
+
+#v-pills-tabContent{
+    width: 80%;
+    margin-left: 1em;
+}
+.show{
+    display: none;
+}
+
+nav a{
+    color: white;
+}
+#myNavbar{
+    justify-content: end;
+    margin-right: 20px;;
+}
+
+nav a:hover{
+    color: white;
+    border: 3px solid #fff;
+    border-radius: 10px;
+}
+
+
+.content{
+    display: none;
+}
+
+#AuthConatiner{
+    position: absolute;
+    display: block;
+    left: 30%;
+    top:25%;
+   
+    text-align: center;
+    border: 12px solid black;
+    padding : 7vh 15px;
+    box-shadow: 5px 5px 7px 1px #ccc;
+    border-radius: 10px;;
+    max-width: 30vw;
+}
+
+
+#LoginButton{
+    width: 10vw;
+    padding: 5px 2px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    background-color: rgb(85, 193, 244);
+}
+
+#LoginButton:hover{
+    color:rgb(85, 193, 244);
+    border: 1px solid rgb(85, 193, 244);
+    background-color: white;
+}
+
+#forgetPassword{
+    font-size: 10px;
+    color: rgb(228, 105, 105);
+}
+
+#RegisterButton{
+    width: 8vw;
+    padding: 5px 2px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    background-color:rgb(239, 209, 74);
+}
+
+#RegisterButton:hover{
+    color: rgb(239, 209, 74);
+    border: 1px solid rgb(239, 209, 74);
+    background-color: white;
+}
+
+#registerUser{
+    display: none;
+    text-align: left;
+    position: absolute;
+    left: 35%;
+    top:15%;
+    text-align: center;
+    border: 12px solid black;
+    padding : 5vh 15px;
+    box-shadow: 10px 5px 14px 1px #ccc;
+    border-radius: 10px;;
+    max-width: 30vw;
+}
+#registerUser h4{
+    text-decoration: overline;
+    text-decoration: underline;
+    margin-bottom: 4vh;
+}
+
+.custom{
+    text-align: left;
+    margin-left: 2vw;
+}
+
+.inputClass input {
+    border:none;
+    width: 100%;
+    margin-left: -3vw;
+}
+
+
+.inputClass input:focus{
+    border-bottom: 1px solid rgb(87, 187, 224);
+    outline: none;
+    border-radius: 5%;
+}
+
+#registerUser label{
+    font-size: x-small;
+    text-align: left;
+
+}
+
+#informatives{
+    width: 15vw;
+    right:0;
+    position: absolute;
+    padding: 5px 3px;
+    margin-top: 10vh;
+    text-align: center;
+    margin-right: 1vw;
+}
+
+.customAlert{
+    padding: 1px;
+    border-bottom: 1px solid rgb(239, 124, 124);
+    color: rgb(239, 124, 124);
+}
+
+.customAlert:hover{
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    
+}
