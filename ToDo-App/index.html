@@ -21,10 +21,10 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <button class="nav-link btn btn-outline-primary mx-4" data-bs-toggle="modal" data-bs-target="#newTaskModal" role="tab" aria-controls="newTaskModal" aria-selected="true">Add new Task</button>
+                        <button class="nav-link btn btn-outline-primary mx-4" id="navBtn01" data-bs-toggle="modal" data-bs-target="#newTaskModal" role="tab" aria-controls="newTaskModal" aria-selected="true">Add new Task</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link btn btn-outline-danger" href="javascript:void(0)" onclick="logOut()">Logout</button>
+                        <button class="nav-link btn btn-outline-danger" id="navBtn02" href="javascript:void(0)" onclick="logOut()">Logout</button>
                     </li>
                 </ul>
             </div>         
@@ -64,7 +64,7 @@
             
             <div class="row g-1">
                 <div class="col-sm"><button class="px-3 mx-1" id="LoginButton">Login</button></div>
-                <div class="col-sm"><button class="px-3 mx-1" id="RegisterButton">Sign-Up</button></div>
+                <div class="col-sm"><button class="px-3 mx-1" id="RegisterButton" onclick="goToRegister()">Sign-Up</button></div>
                 <div class="col-sm"><span id="forgetPassword">Forget-Password</span></div>
                 
             </div>
@@ -313,12 +313,15 @@
 
         });
         alert("Registration Successfull.")
+        document.getElementById('AuthConatiner').style.display='block';
+        document.getElementById('registerUser').style.display='none';
+
     });
 
 
     document.getElementById('LoginButton').addEventListener('click', function(e){
-        console.log("HEllo");
-        let username = 'rakshitKashyap';
+        
+        let username = document.getElementById('usernameSignIn').value;
         get(ref(db, `Users/${username}`)).then((snapshot) => {
             if(snapshot.exists()){
                 const data = snapshot.val();
