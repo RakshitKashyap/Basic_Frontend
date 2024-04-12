@@ -23,10 +23,14 @@ function checkLoggedIn(){
     if(logged=='true'){
         document.getElementById('AuthConatiner').style.display='none'; 
         document.getElementById('mainContent').style.display='block'; 
+        document.getElementById('navBtn01').style.display='block'; 
+        document.getElementById('navBtn02').style.display='block'; 
     }
     else{
         document.getElementById('AuthConatiner').style.display='block'; 
         document.getElementById('mainContent').style.display='none'; 
+        document.getElementById('navBtn01').style.display='none'; 
+        document.getElementById('navBtn02').style.display='none'; 
     }
 
 }
@@ -35,6 +39,13 @@ function logOut(){
     localStorage.setItem('userLoggedIn', false);
     document.getElementById('AuthConatiner').style.display='block'; 
     document.getElementById('mainContent').style.display='none'; 
+}
+
+
+function goToRegister(){
+    document.getElementById('AuthConatiner').style.display='none';
+    document.getElementById('registerUser').style.display='block';
+
 }
 
 checkLoggedIn();
