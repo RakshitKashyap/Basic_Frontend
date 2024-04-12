@@ -1,0 +1,53 @@
+*{
+    box-sizing: border-box;
+
+}
+
+body{
+    background-image: linear-gradient(to right, #545353, #fff);
+}
+
+#signInCard{
+    width: 30vw;
+    display: block;
+    top: 150px;
+    background-color: white;
+    padding: 15px 10px;
+    border-radius: 10px 16px 10px 20px;
+}
+
+#welcomeScreen{
+    display: flex;
+    justify-content: space-between;
+    width: 80vw;
+    position: relative;
+    left:5vw;
+    top:50px;
+    font-size: small;
+   
+}
+
+#intro-section{
+    display: block;
+    padding: 20px;
+    text-align: justify;
+    background-color: #b5c0c4;
+    
+}
+
+#auth-and-register{
+    display: block;
+}
+
+#between{
+    font-size: 10px;
+    border: 1px solid #ccc;
+    justify-content: center;
+    border-radius: 500%;
+}
+
+#forgotPassword{
+    color: rgb(214, 131, 131);
+    font-size: 7px;
+}
+
