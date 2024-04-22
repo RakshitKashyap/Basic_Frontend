@@ -17,7 +17,7 @@
                 <a class="nav-link navbar-brand disabled active" href="#">Instant Notes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-light" href="#" id="newNote">+ Add New</a>
+                <button class="nav-link text-light" id="newNoteButton" data-bs-toggle="modal" data-bs-target="#newNote">+ Add New</button>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-danger" href="#" id="LogoutBtn">Logout</a>
@@ -197,7 +197,42 @@
 
         </div>
 
+    </div>
 
+    <!-- End of Welcome screen and start of Main content -->
+
+    <div class="" id="mainContent"></div>
+
+    <!-- Modal for Editing and creating new Note -->
+
+    <div class="modal fade" id="newNote">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 id="modalHeading" class="modal-title text-dark">Create a new Note</h6>
+                    <button type="button" class="btn-close danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="noteTitle" placeholder="Add Title">
+                        <label class="text-secondary" for="noteTitle">Add Title</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="noteSubTitle" placeholder="Add Subtitle">
+                        <label class="text-secondary" for="noteSubTitle">Add Subtitle</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" id="noteText" style="height: 100px" placeholder="Add Text...."></textarea>
+                        <label class="text-secondary" for="noteText">Add Notes</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" data-bs-dismiss="modal" onclick="createNote()">Save</button>
+                    <button class="btn btn-outline-success">Reset</button>
+                    <button class="btn btn-outline-danger" type="button" data-bs-dismiss="modal" aria-label="Close">Close</button>                    
+                </div>
+            </div>
+        </div>
     </div>
     
 </body>

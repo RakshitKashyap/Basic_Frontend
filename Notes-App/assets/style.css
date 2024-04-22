@@ -4,7 +4,7 @@
 }
 
 body{
-    background-image: linear-gradient(to right, #545353, #fff);
+    background-image: linear-gradient(to right, #484747, #fff);
 }
 
 #signInCard{
@@ -121,4 +121,47 @@ body{
 
 #newNote{
     color:white;
+}
+
+#newNote:hover{
+    text-shadow: 2px 3px 1px 2px #ddd;
+    border-bottom: 1px solid white;
+}
+
+#mainContent{
+    width: 100vw;
+    /* border: 10px solid rgb(42, 41, 41); */
+    margin: 10px;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 20px;
+
+}
+
+.icons{
+    float: right;
+    display: flex;
+    justify-content: space-around;
+}
+
+.icons img{
+    margin-left: 16px;
+    /* color: blue; */
+    padding: 5px;
+    
+}
+
+.editIcon:hover{
+    border-bottom: 5px solid rgb(136, 197, 232);
+}
+
+.deleteIcon:hover{
+    border-bottom: 5px solid rgb(232, 130, 130);
+}
+
+.customNotes{
+    width: 20rem;
+    margin: 15px;
 }
