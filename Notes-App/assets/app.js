@@ -7,9 +7,25 @@ console.log("Hello world")
 const signInBlock = document.getElementById('signInCard');
 const welcomeScreen = document.getElementById('welcomeScreen');
 const SignUpBlock = document.getElementById('registerUser');
-const userLoggedIn = {loggedIn:false};
 const addNewButton = document.getElementById('newNoteButton');
 const logoutButton = document.getElementById('LogoutBtn');
+
+const loggedInUser = {};
+
+function makeSignupAvailable(){
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPass').value;
+
+    if(password != confirmPassword || password==''){
+        console.error("Inavlid Password and Confirm Password");
+        return;
+    }
+
+    button  = document.getElementById('registerButton');
+    button.style.cursor='pointer';
+    button.disabled=false;
+    //button.setAttribute('onclick', 'RegisterUser()')
+}
 
 function goToRegister(){
     document.getElementById('signInCard').style.display='none';
@@ -22,26 +38,36 @@ function goToSignIn(){
 }
 
 
-function AuthenticateUser(){
-    userLoggedIn.loggedIn=true;
-    console.log("user auth");
+function AuthenticateUser(input){
+    loggedInUser.user = input;
     document.getElementById('welcomeScreen').style.display='none';
-    createDefaultNotes();
+    document.getElementById('newNoteButton').style.display='block';
+    document.getElementById('LogoutBtn').style.display='block';
+    createDefaultNotes(input);
 }
 
-function RegisterUser(){
+function logoutUser(){
+    document.getElementById('newNoteButton').style.display='none';
+    document.getElementById('LogoutBtn').style.display='none';
+    document.getElementById('mainContent').style.display='none';
+    document.getElementById('welcomeScreen').style.display='flex';
+    localStorage.setItem('userLoggedIn', false);
+}
+
+function RegisterUser(input){
     console.log("user register");
-    // :todo
-    document.getElementById('welcomeScreen').style.display='none';
+    localStorage.setItem('userLoggedIn', true);
+    AuthenticateUser(input)
+
 }
 
 function deleteNote(input){
-    user = 'DummyUser';
+    user = loggedInUser.user;
     let result = confirm('Are you sure you want to delete this note');
     if(!result){
         return
     }
-    let currentValues = JSON.parse( localStorage.getItem('DummyUser') );
+    let currentValues = JSON.parse( localStorage.getItem(user) );
     currentValues.splice(parseInt(input),1);
     localStorage.setItem(user, JSON.stringify(currentValues));
 }
@@ -50,9 +76,14 @@ function editNote(input){
     console.log("edit note with id:: "+input)
 }
 
-function createDefaultNotes(){
-    user = 'DummyUser';
+function createDefaultNotes(input){
+    
+    console.log(input);
+    let user = input;
     var existingNotes = JSON.parse(localStorage.getItem(user));
+    if(!existingNotes){
+        existingNotes = [];
+    }
 
     for(i = 0 ; i< existingNotes.length ; i++){
         createNoteBlock(existingNotes[i], user, false);
@@ -76,7 +107,7 @@ function createNote(){
         text:text.value
     };
 
-    user = 'DummyUser';
+    user = loggedInUser.user;
 
     var currentValues =   JSON.parse(localStorage.getItem(user));
     if(currentValues=='' || currentValues == null){
