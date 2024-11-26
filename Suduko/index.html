@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Sudoku Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 2px;
+            max-width: 70vw;
+            margin: 0 auto;
+            border: 1px solid #000;
+        }
+        .container input {
+            width: 100%;
+            height: 40px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .container input[readonly] {
+            background-color: #f0f0f0;
+            color: #000;
+            font-weight: bold;
+            
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+   margin: 0;
+}
+    </style>
+</head>
+<body>
+    <h1>Let's Play Some Sudoku</h1>
+    <div class="container" id="sudokuGrid"></div>
+    <button onclick="restartGame()">Restart the Game</button>
+
+    <script>
+        const sudokuGrid = document.getElementById('sudokuGrid');
+        
+        const initialPuzzle = [
+            [5, 3, null, null, 7, null, null, null, null],
+            [6, null, null, 1, 9, 5, null, null, null],
+            [null, 9, 8, null, null, null, null, 6, null],
+            [8, null, null, null, 6, null, null, null, 3],
+            [4, null, null, 8, null, 3, null, null, 1],
+            [7, null, null, null, 2, null, null, null, 6],
+            [null, 6, null, null, null, null, 2, 8, null],
+            [null, null, null, 4, 1, 9, null, null, 5],
+            [null, null, null, null, 8, null, null, 7, 9]
+        ];
+
+        function createSudokuGrid(puzzle) {
+            sudokuGrid.innerHTML = ''; // Clear the grid
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    const input = document.createElement('input');
+                    input.type = 'number';
+                    input.min = 1;
+                    input.max = 9;
+
+                    if (puzzle[row][col]) {
+                        input.value = puzzle[row][col];
+                        input.readOnly = true; // Pre-filled cells are readonly
+                    }
+
+                    sudokuGrid.appendChild(input);
+                }
+            }
+        }
+
+        function restartGame() {
+            createSudokuGrid(initialPuzzle);
+        }
+
+        createSudokuGrid(initialPuzzle);
+    </script>
+</body>
+</html>
