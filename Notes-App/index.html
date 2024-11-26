@@ -20,7 +20,7 @@
                 <button class="nav-link text-light" id="newNoteButton" data-bs-toggle="modal" data-bs-target="#newNote">+ Add New</button>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-danger" href="#" id="LogoutBtn">Logout</a>
+                <a class="nav-link text-danger" href="#" id="LogoutBtn" onclick='logoutUser()'>Logout</a>
               </li>
             </ul>
           </div>
@@ -90,16 +90,16 @@
                 <div class="form-field">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="userSignIn">username</span>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="userSignIn">
+                        <input type="text" id="usernameSignIn" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="userSignIn">
                     </div>
-                      
+                    
                     <div class="input-group mb-2">
-                        <span class="input-group-text" id="passwordSignIn">password</span>
-                        <input type="password" class="form-control" placeholder="password" aria-label="password" aria-describedby="passwordSignIn">                
+                        <span class="input-group-text">password</span>
+                        <input type="password" id="passwordSignIn" class="form-control" placeholder="password" aria-label="password" aria-describedby="passwordSignIn">                
                     </div> 
                     <div class="" id="userActions">
                         <div class="">
-                            <button class="btn btn-outline-primary" onclick='AuthenticateUser()'>LogIn</button>
+                            <button class="btn btn-outline-primary" id="SignInButton">LogIn</button>
                         </div>
                         <div id="between">
                             <span>OR</span>
@@ -122,7 +122,7 @@
                 <div class="row my-4">
                     <div class="col-sm">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="firstName" placeholder="firstName">
+                            <input type="text" class="form-control" id="firstName" placeholder="firstName" required>
                             <label for="firstName">First Name</label>
                         </div>
                     </div>
@@ -133,17 +133,17 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="row mb-4">
                     <div class="col-sm">
                         <div class="form-floating">
-                            <input type="email" class="form-control" id="emailId" placeholder="email">
+                            <input type="email" class="form-control" id="emailId" placeholder="email" required>
                             <label for="emailId">Email</label>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="username" placeholder="username">
+                            <input type="text" class="form-control" id="username" placeholder="username" required>
                             <label for="username">Username</label>
                         </div>
                     </div>
@@ -158,22 +158,22 @@
                     </div>
                     <div class="col-sm">
                         <div class="form-floating">
-                            <input type="tel" class="form-control" id="mobile" placeholder="mobile">
+                            <input type="tel" class="form-control" id="mobile" placeholder="mobile" required>
                             <label for="mobile">Mobile</label>
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="row mb-4">
                     <div class="col-sm">
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" id="password" placeholder="Password" required>
                             <label for="password">Password</label>
                         </div>
                     </div>
                     <div class="col-sm">
                         <div class="form-floating">
-                            <input type="password" class="form-control" id="confirmPass" placeholder="Password">
+                            <input type="password" class="form-control" id="confirmPass" placeholder="Confirm Password" required onchange="makeSignupAvailable()">
                             <label for="confirmPass">Confirm Password</label>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm"><button id="registerButton" onclick='RegisterUser()'>Sign Up</button></div>
+                    <div class="col-sm"><button id="registerButton" disabled>Sign Up</button></div>
                     <div class="col-sm-1"><p id="midText">OR</p></div>
                     <div class="col-sm"><button id="signInButton" onclick='goToSignIn()'>Sign In</button></div>
                 </div>
@@ -234,6 +234,94 @@
             </div>
         </div>
     </div>
+
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+        import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyDxY44Rz-Y-9Ul4-N7DT5gUdpbQ84Ebdx8",
+        authDomain: "organicshop-113fe.firebaseapp.com",
+        databaseURL: "https://organicshop-113fe-default-rtdb.firebaseio.com",
+        projectId: "organicshop-113fe",
+        storageBucket: "organicshop-113fe.appspot.com",
+        messagingSenderId: "1045647747739",
+        appId: "1:1045647747739:web:4b8d69eb395458fe5fb43e",
+        measurementId: "G-QBFS8G4WDC"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        const db = getDatabase(app);
+
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('emailId');
+        const username = document.getElementById('username');
+        const mobile = document.getElementById('mobile');
+        const dob = document.getElementById('DOB');
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPass');
+        const newsUpdate = document.getElementById('dailyUpdates');
+
+        document.getElementById("registerButton").addEventListener('click' , function(e){
+           
+            var user = username.value;
+
+            set(ref(db, `Notes/Users/${user}`), {
+                email       :   email.value,
+                username    :   username.value,
+                firstName   :   firstName.value,
+                lastName    :   lastName.value,
+                mobile      :   mobile.value,
+                dob         :   dob.value,
+                updateInfo  :   (newsUpdate.value=='on')?true:false,
+                password    :   password.value
+
+            });
+            alert("Registration Successfull.")
+            RegisterUser(user);
+        
+        });
+
+         
+        document.getElementById('SignInButton').addEventListener('click', function(e){
+        let username = document.getElementById('usernameSignIn').value;
+        get(ref(db, `Notes/Users/${username}`)).then((snapshot) => {
+            console.log(snapshot)
+            if(snapshot.exists()){
+                const data = snapshot.val();
+                console.log(data);
+                
+                var username = document.getElementById('usernameSignIn').value;
+                var password = document.getElementById('passwordSignIn').value;
+
+                if(username=='' || password==''){
+                    throw new Error("Password and Username are required fields")
+                }
+                if((username==data.username || username == data.email) && password == data.password){
+                    console.log("You're logged in.");
+                    localStorage.setItem("userLoggedIn", true);
+                    AuthenticateUser(username)
+                }
+                else{
+                    console.error("Invalid Username or password.");
+                }                
+            }
+        }).catch((err) => {
+            console.log("Error occured bitch", err)
+            });
+        });
+
+  </script>
     
 </body>
 </html>
